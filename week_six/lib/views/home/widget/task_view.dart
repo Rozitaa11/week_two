@@ -8,11 +8,11 @@ import 'package:week_six/views/home/widget/task_view_app_bar.dart';
 
 class TaskView extends StatefulWidget {
   final TextEditingController titleTaskController;
-  final TextEditingController descriptionTaskControlle;
+  final TextEditingController descriptionTaskController;
   const TaskView({
     super.key,
     required this.titleTaskController,
-    required this.descriptionTaskControlle,
+    required this.descriptionTaskController,
     this.task,
   });
   final Task? task;
@@ -22,6 +22,21 @@ class TaskView extends StatefulWidget {
 }
 
 class _TaskViewState extends State<TaskView> {
+  String? title;
+  String? subTitle;
+  DateTime? time;
+  DateTime? date;
+  String? selectedDate;
+  //id task already exits return true othrwise false
+  bool isTaskAlreadyExits() {
+    if (widget.titleTaskController.text.isEmpty &&
+        widget.descriptionTaskController.text.isEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
@@ -48,7 +63,7 @@ class _TaskViewState extends State<TaskView> {
                 ),
                 SizedBox(height: 10),
                 RepTextField(
-                  controller: widget.descriptionTaskControlle,
+                  controller: widget.descriptionTaskController,
                   isForDescription: false,
                 ),
                 //for time selection
@@ -61,7 +76,7 @@ class _TaskViewState extends State<TaskView> {
                         child: TimePickerWidget(
                           onChange: (_, _) {},
                           dateFormat: 'hh:mm a',
-                          onConfirm: (DateTime, _) {},
+                          onConfirm: (selectedTime, _) {},
                         ),
                       ),
                     );
@@ -170,7 +185,9 @@ class _TaskViewState extends State<TaskView> {
           SizedBox(width: 70, child: Divider(thickness: 1, color: Colors.grey)),
           RichText(
             text: TextSpan(
-              text: AppStr.addNewTask,
+              text: isTaskAlreadyExits()
+                  ? AppStr.addNewTask
+                  : AppStr.updateCurrentTask,
               style: textTheme.titleLarge,
               children: const [
                 TextSpan(

@@ -21,8 +21,15 @@ class _SignupState extends State<Signup> {
     return Scaffold(
       // ✅ Only Scaffold
       body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 246, 246, 246),
+              Color.fromARGB(255, 126, 25, 141),
+            ],
+          ),
+        ),
         width: double.infinity,
-        color: const Color.fromARGB(255, 131, 93, 137),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
@@ -48,16 +55,27 @@ class _SignupState extends State<Signup> {
               ),
               const SizedBox(height: 10),
               const TextField(
+                obscureText: true,
                 decoration: InputDecoration(
                   hintText: 'Password',
+
                   filled: true,
                   fillColor: Colors.white,
                 ),
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: onPressed,
-                child: const Text('Sign In'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    onPressed: onPressed,
+                    child: const Text('Sign In'),
+                  ),
+                  ElevatedButton(
+                    onPressed: onPressed,
+                    child: const Text('Forgot Password?'),
+                  ),
+                ],
               ),
             ],
           ),

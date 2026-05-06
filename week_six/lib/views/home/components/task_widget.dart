@@ -11,6 +11,23 @@ class TaskWidget extends StatefulWidget {
 }
 
 class _TaskWidgetState extends State<TaskWidget> {
+  TextEditingController textEditingControllerForTitle = TextEditingController();
+  TextEditingController textEditingControllerForsubTitle =
+      TextEditingController();
+  @override
+  void initState() {
+    textEditingControllerForTitle.text = widget.task.title;
+    textEditingControllerForsubTitle.text = widget.task.subTitle;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    textEditingControllerForTitle.dispose();
+    textEditingControllerForsubTitle.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -65,9 +82,9 @@ class _TaskWidgetState extends State<TaskWidget> {
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Description',
-                style: TextStyle(
+              Text(
+                textEditingControllerForTitle.text,
+                style: const TextStyle(
                   color: Color.fromARGB(255, 229, 221, 221),
                   fontWeight: FontWeight.w300,
                 ),

@@ -12,7 +12,13 @@ class Fab extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          CupertinoPageRoute(builder: (_) => const TaskView()),
+          CupertinoPageRoute(
+            builder: (_) => TaskView(
+              titleTaskController: TextEditingController(),
+              descriptionTaskController: TextEditingController(),
+              task: null,
+            ),
+          ),
         );
       },
       child: Material(
